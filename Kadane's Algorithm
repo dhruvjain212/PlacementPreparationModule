@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n= nums.size();
+        int flag= 0;
+        for(int i=0; i<n; i++){
+            if(nums[i] >= 0){
+                flag = 1;
+                break;
+            }
+        }
+        int max_sum;
+        if( flag == 1){
+           //means some positive integers are there in nums array
+            max_sum= 0;
+           int sum =0;
+
+           for(int i=0; i<n ;i++){
+               sum += nums[i];
+               max_sum = max( max_sum , sum);
+               if( sum <= 0){
+                  sum = 0;
+               }
+           }
+        }
+        else{
+          // means all the integers are negative only
+          max_sum = nums[0];
+          for(int i=0; i<n ; i++){
+              max_sum = max(max_sum, nums[i]);
+          }
+        }
+
+        return max_sum;
+    }
+};
