@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+         unordered_map<int , int > mp;
+       int sum = 0;
+       int n= nums.size();
+       int no_of_subarrays= 0;
+       mp[sum] = 1;
+       for(int i=0; i<n; i++){
+           sum += nums[i];
+        //    if( sum == k){
+        //      maxi = i+1;
+        //    }
+         //  else{
+               if( mp.find( sum-k) != mp.end()){
+                   //maxi= max(maxi, i- mp[sum]);
+                   no_of_subarrays += mp[sum-k];
+               }
+                   mp[sum]++;;
+               
+          // }
+       }
+       return no_of_subarrays;
+    }
+};
