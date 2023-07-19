@@ -1,0 +1,14 @@
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+	    //*******Note: Using Greedy Apporach, hence all the test cases
+	    //             will not execute successfully
+	    int coins_needed= 0;
+	    for(int i= 0; i<M; i++){
+	       while( V >= coins[i]){
+	            V= V- coins[i];
+	            coins_needed++;
+	        }
+	    }
+	    return coins_needed;
+	} 
