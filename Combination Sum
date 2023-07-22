@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+void solve(vector<int>candidates, int target, vector<vector<int>>&ans,vector<int>combination, int index){
+     //base case
+     if(index >= candidates.size()){
+         if(target == 0)   ans.push_back(combination);
+
+         return;
+     }
+     
+     //exclude
+     solve(candidates, target, ans, combination, index+1);
+
+     //include
+     if(candidates[index] <= target){
+         combination.push_back(candidates[index]);
+         solve(candidates, target-candidates[index], ans, combination, index);
+     }
+}
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>combination;
+        int index = 0;
+        solve(candidates, target, ans, combination, index);
+        return ans;
+
+    }
+};
