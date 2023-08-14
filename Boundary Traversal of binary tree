@@ -1,0 +1,63 @@
+public:
+    vector<int> ans;
+
+    // Traverse and collect the left boundary nodes (excluding leaf nodes)
+    void leftBoundary(Node *root)
+    {
+        if (!root || (!root->left && !root->right))
+            return;
+
+        ans.push_back(root->data);
+
+        if (root->left)
+            leftBoundary(root->left);
+        else if (root->right)
+            leftBoundary(root->right);
+    }
+
+    // Traverse and collect the right boundary nodes in reverse order (excluding leaf nodes)
+    void rightBoundary(Node *root)
+    {
+        if (!root || (!root->left && !root->right))
+            return;
+
+        if (root->right)
+            rightBoundary(root->right);
+        else if (root->left)
+            rightBoundary(root->left);
+
+        ans.push_back(root->data); // Add after child visitation (bottom-up)
+    }
+
+    // Traverse and collect leaf nodes
+    void leaves(Node *root)
+    {
+        if (!root)
+            return;
+
+        leaves(root->left);
+
+        if (!root->left && !root->right)
+            ans.push_back(root->data);
+
+        leaves(root->right);
+    }
+
+    // Main function to generate the boundary traversal
+    vector<int> boundary(Node *root)
+    {
+        if (!root)
+            return ans;
+        if(!root->left && !root->right){
+            ans.push_back(root->data);
+            return ans;
+        }
+
+        ans.push_back(root->data); // Add root to the result
+
+        leftBoundary(root->left);  // Traverse left boundary nodes
+        leaves(root);              // Traverse and collect leaf nodes
+        rightBoundary(root->right);// Traverse right boundary nodes in reverse order
+
+        return ans;
+    }
